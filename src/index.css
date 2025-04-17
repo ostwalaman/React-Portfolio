@@ -2,39 +2,118 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─────────────────────────────────────────────────────
+   1) Only push the page‑wrapper down when menu opens
+      (no longer pushes the nav itself)
+   ───────────────────────────────────────────────────── */
+body.menu-open main {
+  /* nav (4rem) + menu (~15rem) = 19rem total */
+  padding-top: 12rem !important;
+}
+
+.main-content {
+  top: -15rem;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+
+  /* desktop: restore original pt-36 => 9rem */
+  body.menu-open main {
+    padding-top: 9rem !important;
+  }
+}
+
+body.menu-open .page-wrapper {
+  padding-top: 240px;
+  /* nav (80px) + menu height (~160px) */
+}
+
+@media (min-width: 768px) {
+  body.menu-open .page-wrapper {
+    padding-top: 0;
+    /* desktop: don’t push */
+  }
+}
+
+/* ─────────────────────────────────────────────────────
+   2) Mobile menu – now sits under the navbar instead of at top
+   ───────────────────────────────────────────────────── */
+.mobile-menu {
+  display: none;
+  position: fixed !important;
+  top: 2rem !important;
+  /* drop below the 80px‑tall nav */
+  left: 0;
+  width: 100%;
+  z-index: 40;
+  /* under nav’s z‑50, so the X stays clickable */
+  background-color: white;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease-in-out;
+  transform: translateY(-100%);
+  /* hide above its own container */
+}
+
+/* show it when open */
+body.menu-open .mobile-menu {
+  display: block;
+  transform: translateY(0);
+}
+
+@media (min-width: 768px) {
+  .mobile-menu {
+    display: none !important;
+    /* never on desktop */
+  }
+}
+
+/* ─────────────────────────────────────────────────────
+   3) Rest of your styles unchanged
+   ───────────────────────────────────────────────────── */
+/* Profile image sizes */
 .custom-profile-img {
-  width: 80px;
-  height: 80px;
+  width: 120px;
+  height: 120px;
+}
+
+@media (min-width: 640px) {
+  .custom-profile-img {
+    width: 136px;
+    height: 136px;
+  }
 }
 
 @media (min-width: 768px) {
   .custom-profile-img {
-    width: 96px;
-    height: 96px;
+    width: 152px;
+    height: 152px;
   }
 }
 
 @media (min-width: 1024px) {
   .custom-profile-img {
-    width: 112px;
-    height: 112px;
+    width: 168px;
+    height: 168px;
   }
 }
 
+/* Navigation link styling */
 .nav-link {
-  color: #1f2937; /* dark gray */
+  color: #1f2937;
   text-decoration: none;
   font-weight: 500;
-  /* padding: 0.25rem 0.5rem; */
   padding: 0.5rem 1rem;
   position: relative;
   transition: color 0.3s ease-in-out;
-  letter-spacing: 0.5px; /* 👈 Slight letter spacing */
-  margin: 0 0.75rem;      /* 👈 Horizontal spacing between links */
+  letter-spacing: 0.5px;
+  margin: 0 0.75rem;
 }
 
 .nav-link:hover {
-  color: #2563eb; /* blue */
+  color: #2563eb;
 }
 
 .nav-link::after {
@@ -55,6 +134,7 @@
   transform-origin: bottom left;
 }
 
+/* Button styling */
 .btn {
   display: inline-block;
   padding: 0.75rem 2rem;
@@ -65,7 +145,6 @@
   transition: all 0.3s ease-in-out;
   font-size: 1rem;
   line-height: 1.25rem;
-  margin: 0 0.5rem; /* 👈 NEW: adds horizontal spacing */
 }
 
 .btn-primary {
@@ -89,10 +168,76 @@
   color: white;
 }
 
+/* Page wrapper default padding (under nav) */
 .page-wrapper {
-  padding-top: 140px; /* Enough to clear Navbar */
+  padding-top: 80px;
   min-height: 100vh;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
   text-align: center;
+  transition: all 0.3s ease;
+}
+
+/* Smooth body padding transitions (left from original) */
+body {
+  transition: padding-top 0.3s ease;
+}
+
+.btn-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .btn-group {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+/* Desktop vs Mobile Nav Visibility */
+.desktop-nav {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .desktop-nav {
+    display: flex !important;
+    justify-content: center;
+    gap: 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .mobile-hamburger {
+    display: none !important;
+  }
+}
+
+/* Mobile hamburger button */
+.mobile-hamburger {
+  display: block;
+  cursor: pointer;
+}
+
+/* Optional slide‑down animation (unchanged) */
+.slide-down {
+  animation: slide-down 0.3s ease-out forwards;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
