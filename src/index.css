@@ -8,11 +8,11 @@
    ───────────────────────────────────────────────────── */
 body.menu-open main {
   /* nav (4rem) + menu (~15rem) = 19rem total */
-  padding-top: 12rem !important;
+  padding-top: 10rem !important;
 }
 
-.main-content {
-  top: -15rem;
+body.menu-open .main-content {
+  top: -10rem;
   position: relative;
 }
 
