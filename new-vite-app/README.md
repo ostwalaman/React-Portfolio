@@ -2,6 +2,12 @@
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
+## Tailwind CSS
+
+This project is configured with Tailwind CSS. All Tailwind directives are
+included in `src/index.css`, and the PostCSS configuration uses the
+`@tailwindcss/postcss` plugin.
+
 Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
